@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { motion, HTMLMotionProps, AnimatePresence } from "framer-motion";
-import { BorderBeam } from "./border-beam";
+
 
 // Extend HTMLMotionProps with optional beamBorderRadius prop for custom border beam rounding
 export interface InputProps extends HTMLMotionProps<"input"> {
