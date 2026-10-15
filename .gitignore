@@ -1,4 +1,6 @@
-# Source/reference files
-Ajith KS PAE.pdf
-Ajith_KS_Portfolio_PRD_Updated.pdf
-Website inspo/
+﻿node_modules
+dist
+.env*
+*.log
+.vite
+.DS_Store

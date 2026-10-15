@@ -1,88 +1,32 @@
-# Ajith KS — Portfolio
+# React + TypeScript + Vite
 
-A modern, premium personal portfolio website for **Ajith KS**, an Automation Engineer with 7+ years of experience in enterprise automation, workflow optimization, systems integration, and data engineering.
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-🔗 **Live:** [ajith-ks.github.io/Portfolio](https://ajith-ks.github.io/Portfolio) *(deploy via GitHub Pages)*
+Currently, two official plugins are available:
 
----
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## ✨ Features
+## React Compiler
 
-- **Dark/Light Theme** — Dark mode default with toggle, saved to localStorage
-- **Single Page App** — Smooth scroll navigation across 13 sections
-- **Project Case Studies** — 8 project cards (4 Featured + 4 More) with detailed modals featuring ASCII workflow diagrams, contribution lists, and outcome highlights
-- **Scroll Animations** — IntersectionObserver-powered reveal animations and animated metric counters
-- **Responsive Design** — Mobile-first layout with hamburger menu (breakpoints at 480px, 768px, 1024px)
-- **Resume Download** — Direct PDF download from nav, hero, and mobile menu
-- **Certificate Links** — External credential verification (Azure, Coursera, HRD University) + local PDF
-- **SEO Optimized** — Meta tags, Open Graph, semantic HTML, proper heading hierarchy
-- **Accessible** — Keyboard navigation, focus states, aria labels, ESC-to-close modals
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 🛠 Tech Stack
+## Expanding the Oxlint configuration
 
-| Layer | Technology |
-|-------|-----------|
-| Structure | HTML5 (Semantic) |
-| Styling | Vanilla CSS (Custom Properties, Grid, Flexbox) |
-| Interactivity | Vanilla JavaScript (ES6+) |
-| Fonts | [Inter](https://fonts.google.com/specimen/Inter) via Google Fonts |
-| Icons | Inline SVG |
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
 
-No frameworks, no build tools, no dependencies — just clean HTML/CSS/JS.
-
-## 📁 Project Structure
-
-```
-Portfolio/
-├── index.html                  # Main single-page site
-├── style.css                   # Design system + all styles
-├── script.js                   # Navigation, modals, animations, theme toggle
-├── assets/
-│   ├── profile-hero.png        # Hero section image
-│   ├── profile-real.png        # About section photo
-│   ├── resume/
-│   │   └── Ajith_KS_Automation_Engineer_Resume.pdf
-│   └── Cerificate/
-│       └── Complete Business Analytics Certification Program.pdf
-└── README.md
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
 ```
 
-## 🚀 Quick Start
-
-```bash
-# Clone
-git clone https://github.com/ajith-ks/Portfolio.git
-cd Portfolio
-
-# Serve locally
-python -m http.server 8080
-# Open http://localhost:8080
-```
-
-Or simply open `index.html` in your browser.
-
-## 📑 Sections
-
-1. **Hero** — Name, title, tagline, CTAs, social links, profile visual
-2. **Tech Scroll Bar** — Animated marquee of technologies
-3. **About Me** — Professional summary with photo and service highlights
-4. **Professional Highlights** — 6 animated metric counters
-5. **Skills & Technologies** — 4-category skill grid
-6. **Professional Experience** — TCS timeline with 8 achievement bullets
-7. **Featured Projects** — 4 curated project cards with detailed modals
-8. **More Automation Projects** — 4 additional project cards
-9. **Automation Expertise** — 6 expertise area cards
-10. **Education** — 3 education cards
-11. **Certifications** — 5 certification cards with verification links
-12. **Let's Connect** — Contact links + contact form
-13. **Footer** — Branding, social links, copyright
-
-## 📬 Contact
-
-- **GitHub:** [github.com/ajith-ks](https://github.com/ajith-ks)
-- **LinkedIn:** [linkedin.com/in/iajithks](https://linkedin.com/in/iajithks)
-- **Email:** imajithks@gmail.com
-
----
-
-© 2026 Ajith KS. All rights reserved.
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
