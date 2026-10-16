@@ -10,17 +10,17 @@ export const content = {
     "education":  [
                       {
                           "degree":  "MSc IT",
-                          "year":  "2022 – 2025",
+                          "year":  "2022 â€“ 2025",
                           "institution":  "Centre for Distance and Online Education, Bharathiar University"
                       },
                       {
                           "degree":  "PG Program in Data Engineering",
-                          "year":  "2022 – 2023",
+                          "year":  "2022 â€“ 2023",
                           "institution":  "Great Learning"
                       },
                       {
                           "degree":  "BCA",
-                          "year":  "2014 – 2017",
+                          "year":  "2014 â€“ 2017",
                           "institution":  "AJK College of Arts and Science"
                       }
                   ],
@@ -54,7 +54,7 @@ export const content = {
                        ],
     "shortBio":  "Building intelligent workflows that connect people, systems and data. 7+ years specializing in enterprise automation, workflow optimization and systems integration.",
     "footer":  {
-                   "tagline":  "Automation Engineer — Workflow Automation • Systems Integration • Data Engineering",
+                   "tagline":  "Automation Engineer â€” Workflow Automation â€¢ Systems Integration â€¢ Data Engineering",
                    "brand":  "AJITH KS"
                },
     "skills":  [
@@ -221,7 +221,7 @@ export const content = {
                         ],
     "experience":  [
                        {
-                           "dates":  "01/2019 – Present",
+                           "dates":  "01/2019 â€“ Present",
                            "bullets":  [
                                            "Process Automation: Led automation initiatives using Groovy scripting and API integrations, reducing manual effort by 15+ hours weekly.",
                                            "Workflow Optimization: Orchestrated automated workflows for incident management, user access provisioning, and reporting, cutting processing time by 40%.",

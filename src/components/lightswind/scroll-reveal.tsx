@@ -1,8 +1,8 @@
 // "use client"; directive is correctly placed at the top
 
-import React, { useRef, useMemo } from "react"; // Added useMemo
+import React, { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { cn } from "@/lib/utils"; // Assuming cn utility is available
+import { cn } from "@/lib/utils";
 
 export interface ScrollRevealProps {
   children: React.ReactNode;
@@ -36,6 +36,8 @@ export interface ScrollRevealProps {
   align?: "left" | "center" | "right";
   /** Color variant */
   variant?: "default" | "muted" | "accent" | "primary";
+  /** HTML tag to render (default p) */
+  as?: "h1" | "h2" | "h3" | "h4" | "span" | "p";
 }
 
 const sizeClasses = {
@@ -70,24 +72,21 @@ export function ScrollReveal({
   staggerDelay = 0.05,
   threshold = 0.5,
   duration = 0.8,
-  springConfig = { // Default spring config is always good to have
-    damping: 25,
-    stiffness: 100,
-    mass: 1,
-  },
+  springConfig = { damping: 25, stiffness: 100, mass: 1 },
   size = "lg",
   align = "left",
   variant = "default",
+  as = "p",
 }: ScrollRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, {
     amount: threshold,
-    once: false
+    once: false,
   });
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   // Transform rotation based on scroll
@@ -97,9 +96,45 @@ export function ScrollReveal({
     [baseRotation, 0, 0]
   );
 
-  // Split text into words and spaces, ensuring each part is an object
-  const splitText = useMemo(() => { // Using useMemo is good here
-    const text = typeof children === "string" ? children : "";
+  // Non-string children (e.g. headings with markup) cannot be split into
+  // animated words — render them plainly inside the reveal container.
+  if (typeof children !== "string") {
+    return (
+      <motion.div
+        ref={containerRef}
+        className={cn("my-5 transform-gpu", containerClassName)}
+        style={{ rotate: rotation }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: staggerDelay,
+              delayChildren: 0.1,
+            },
+          },
+        }}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        <div
+          className={cn(
+            "leading-relaxed font-semibold",
+            sizeClasses[size],
+            alignClasses[align],
+            variantClasses[variant],
+            textClassName
+          )}
+        >
+          {children}
+        </div>
+      </motion.div>
+    );
+  }
+
+  // For string children, animate each word
+  const splitText = (() => {
+    const text = children;
     // Split by spaces, keeping the spaces as separate elements in the array.
     // Each 'part' will either be a word or a sequence of spaces.
     return text.split(/(\s+)/).map((part, index) => {
@@ -110,8 +145,8 @@ export function ScrollReveal({
         isSpace: part.match(/^\s+$/) && part.length > 0, // Check if it's a non-empty string of only whitespace
         originalIndex: index, // Keep original index for stable keys
       };
-    }).filter(item => item.value.length > 0); // Filter out any empty strings that might result from split
-  }, [children]);
+    }).filter((item) => item.value.length > 0); // Filter out any empty strings that might result from split
+  })();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -146,11 +181,8 @@ export function ScrollReveal({
   return (
     <motion.div
       ref={containerRef}
+      className={cn("my-5 transform-gpu", containerClassName)}
       style={{ rotate: rotation }}
-      className={cn(
-        "my-5 transform-gpu",
-        containerClassName
-      )}
     >
       <motion.p
         className={cn(
@@ -165,7 +197,7 @@ export function ScrollReveal({
         // Changed to `isInView` to match the behavior of triggering on view
         animate={isInView ? "visible" : "hidden"}
       >
-        {splitText.map((item) => ( // Map over 'item' directly as it's always an object
+        {splitText.map((item) =>
           item.isSpace ? (
             // Render spaces as a regular span
             <span key={`space-${item.originalIndex}`}>{item.value}</span>
@@ -179,7 +211,7 @@ export function ScrollReveal({
               {item.value}
             </motion.span>
           )
-        ))}
+        )}
       </motion.p>
     </motion.div>
   );

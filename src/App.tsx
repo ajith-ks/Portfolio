@@ -3,6 +3,8 @@ import Lenis from 'lenis'
 import { HangingIdCard } from '@/components/lightswind/hanging-id-card'
 import { ToggleTheme } from '@/components/lightswind/toggle-theme'
 import { content } from '@/data/content'
+import { AboutSection } from '@/components/sections/about'
+import { ServicesSection } from '@/components/sections/services'
 import photoLight from '@/assets/ajith-id-light.webp'
 import photoDark from '@/assets/ajith-id-dark.webp'
 
@@ -179,8 +181,8 @@ export default function App() {
         </section>
 
         {/* Anchors for the nav links; the sections are built in step 7b */}
-        <section id="about" aria-label="About" className="py-12" />
-        <section id="services" aria-label="Services" className="py-12" />
+        <AboutSection />
+        <ServicesSection />
         <section id="education" aria-label="Experience and education" className="py-12" />
         <section id="projects" aria-label="Projects" className="py-12" />
         <section id="skills" aria-label="Skills" className="py-12" />
