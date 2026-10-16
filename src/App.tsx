@@ -32,7 +32,7 @@ export default function App() {
       <section className='flex flex-col items-center justify-center min-h-screen pt-20'>
         <div className='flex flex-col items-center w-full max-w-md space-y-6'>
           <HangingIdCard name='Ajith KS' role='Automation Engineer' badgeId='Process Automation'>
-            <img src={import.meta.env.BASE_URL + 'images/profile-id-web.webp'} alt='Ajith KS' className='w-24 h-24 rounded-full object-cover' />
+            <img src={import.meta.env.BASE_URL + 'images/profile-id-web.png'} alt='Ajith KS' className='w-24 h-24 rounded-full object-cover' />
           </HangingIdCard>
 
           {shortBio && (
