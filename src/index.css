@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* The theme toggle adds/removes the "dark" class on <html>, so make
+   Tailwind's dark: variant follow that class instead of the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-background: #ffffff;
   --color-foreground: #09090b;
@@ -14,7 +18,7 @@
   --color-accent-foreground: #18181b;
 }
 
-[data-theme='dark'] {
+.dark {
   --color-background: #09090b;
   --color-foreground: #fafafa;
   --color-primary: #10b981;
@@ -26,9 +30,43 @@
   --color-muted-foreground: #a1a1aa;
   --color-accent: #27272a;
   --color-accent-foreground: #fafafa;
+  color-scheme: dark;
+}
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
+  margin: 0;
   background-color: var(--color-background);
   color: var(--color-foreground);
+  font-family: "Geist Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Emerald shine used for the role in the hero heading */
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.shine-text {
+  background-image: linear-gradient(90deg, #059669 0%, #6ee7b7 25%, #10b981 50%, #6ee7b7 75%, #059669 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shine 4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shine-text {
+    animation: none;
+  }
 }
