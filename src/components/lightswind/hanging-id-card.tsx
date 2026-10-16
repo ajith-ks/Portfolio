@@ -23,6 +23,7 @@ export interface HangingIdCardProps {
   role?: string;
   badgeId?: string;
   accentColor?: string;
+  cardWidth?: string;
 }
 
 // ─── SVG Black Lanyard Rope & Metal Lock Clip ──────────────────────────────────
@@ -173,6 +174,7 @@ export const HangingIdCard = ({
   role        = "Product Designer",
   badgeId     = "ID-84920",
   accentColor = "#2563eb",
+  cardWidth   = "w-72 sm:w-80",
 }: HangingIdCardProps) => {
   const physRef      = useRef<CardPhysicsState>({ angle: 0, vel: 0 });
   const rafRef       = useRef<number | null>(null);
@@ -299,11 +301,11 @@ export const HangingIdCard = ({
         </div>
 
         {/* ID Card */}
-        <div className="relative w-52 rounded-2xl overflow-hidden shadow-2xl border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900 pointer-events-none mt-[-16px]">
+        <div className={cn("relative rounded-[1.75rem] overflow-hidden shadow-2xl border border-zinc-200/80 dark:border-white/15 bg-card pointer-events-none mt-[-16px]", cardWidth)}>
           {/* Punched Slot Hole for Lanyard Clip */}
-          <div className="flex justify-center pt-2.5 pb-1 bg-zinc-100 dark:bg-zinc-800/80 border-b border-zinc-200/80 dark:border-zinc-800">
-            <div className="w-8 h-2.5 rounded-full bg-zinc-950 dark:bg-black border border-zinc-400/50 dark:border-zinc-700 shadow-inner flex items-center justify-center">
-              <div className="w-6 h-1 rounded-full bg-zinc-900 dark:bg-zinc-950 opacity-90" />
+          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
+            <div className="w-9 h-2.5 rounded-full bg-black/70 dark:bg-black/90 border border-white/30 shadow-inner flex items-center justify-center">
+              <div className="w-7 h-1 rounded-full bg-zinc-950 opacity-90" />
             </div>
           </div>
 

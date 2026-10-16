@@ -1,32 +1,75 @@
-# React + TypeScript + Vite
+# Ajith KS - Professional Portfolio Rebuild
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Personal portfolio website for **Ajith KS**, Automation Engineer specializing in enterprise automation, workflow optimization, systems integration, and data engineering.
 
-Currently, two official plugins are available:
+Built with **Vite**, **React 19**, **TypeScript**, and **Tailwind CSS v4**, featuring interactive Lightswind components, Lenis smooth scrolling, dark mode, accessible native dialog modals, and responsive layout.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework:** Vite + React + TypeScript
+- **Styling:** Tailwind CSS v4
+- **Animation & Scrolling:** Framer Motion, Lenis
+- **Icons:** Lucide React + custom SVG icons
+- **Deployment:** GitHub Pages via GitHub Actions
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🚀 Getting Started
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Prerequisites
+
+- Node.js (version 22 recommended)
+- npm
+
+### Installation
+
+```bash
+# Install dependencies cleanly
+npm ci
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Development Server
+
+```bash
+# Run local dev server (default: http://localhost:5173/Portfolio/)
+npm run dev
+```
+
+### Production Build
+
+```bash
+# Build production bundle to dist/
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+### Linting
+
+```bash
+npm run lint
+```
+
+---
+
+## 📝 Content Management
+
+All website content (bio, skills, experience, project case studies, certifications, education, contact details) is centralized and strictly typed in:
+```text
+src/data/content.ts
+```
+
+To update any section, edit the relevant field in `src/data/content.ts`.
+
+---
+
+## 🚢 Deployment Workflow
+
+This project is configured for automated continuous deployment to **GitHub Pages** using GitHub Actions:
+
+- **Workflow configuration:** `.github/workflows/deploy.yml`
+- **Trigger:** Automatic deployment on `push` to `main`, or manual trigger via `workflow_dispatch`.
+- **Target URL:** `https://ajith-ks.github.io/Portfolio/`

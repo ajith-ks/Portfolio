@@ -2,11 +2,19 @@ import { useEffect, useState } from 'react'
 import Lenis from 'lenis'
 import { HangingIdCard } from '@/components/lightswind/hanging-id-card'
 import { ToggleTheme } from '@/components/lightswind/toggle-theme'
+import { SlidingLogoMarquee, type SlidingLogoMarqueeItem } from '@/components/lightswind/sliding-logo-marquee'
 import { content } from '@/data/content'
 import { AboutSection } from '@/components/sections/about'
-import { ServicesSection } from '@/components/sections/services'
-import photoLight from '@/assets/ajith-id-light.webp'
-import photoDark from '@/assets/ajith-id-dark.webp'
+import { SkillsSection } from '@/components/sections/skills'
+import { ExperienceSection } from '@/components/sections/experience'
+import { ProjectsSection } from '@/components/sections/projects'
+import { ExpertiseSection } from '@/components/sections/expertise'
+import { EducationSection } from '@/components/sections/education'
+import { CertificationsSection } from '@/components/sections/certifications'
+import { ContactSection } from '@/components/sections/contact'
+import { Footer } from '@/components/sections/footer'
+import idCardPortraitLight from '@/assets/id-card-portrait-light.webp'
+import idCardPortraitDark from '@/assets/id-card-portrait-dark.webp'
 
 // The theme toggle switches the "dark" class on <html>, so apply the saved
 // (or system) theme once, before the first render.
@@ -36,13 +44,22 @@ const BIO =
 const RESUME_URL = import.meta.env.BASE_URL + 'resume/Ajith_KS_Automation_Engineer_Resume.pdf'
 
 const NAV_LINKS = [
+  { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Education', href: '#education' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
 ]
+
+const MARQUEE_ITEMS: SlidingLogoMarqueeItem[] = content.marquee.map((name) => ({
+  id: name,
+  content: (
+    <span className="flex items-center justify-center whitespace-nowrap rounded-full border border-border bg-card/60 px-5 py-2 text-sm font-semibold tracking-wide text-muted-foreground backdrop-blur-sm transition-colors hover:border-primary hover:text-foreground">
+      {name}
+    </span>
+  ),
+}))
 
 const buttonBase =
   'inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
@@ -91,6 +108,14 @@ export default function App() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
+            >
+              Resume
+            </a>
             <ToggleTheme />
             <button
               type="button"
@@ -116,6 +141,17 @@ export default function App() {
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-base font-semibold text-primary"
+                onClick={() => setMenuOpen(false)}
+              >
+                Resume
+              </a>
+            </li>
           </ul>
         )}
       </header>
@@ -124,8 +160,12 @@ export default function App() {
         <section id="hero" className="mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-16 pt-32">
           <div className="grid w-full items-center gap-12 lg:grid-cols-2">
             <div className="space-y-6">
+              <p className="font-mono text-sm font-semibold tracking-wider text-primary">
+                Hello
+              </p>
+
               <h1 className="text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-                <span className="block">{NAME}</span>
+                <span className="block">I'm {NAME}</span>
                 <span className="shine-text block pb-1">{ROLE}</span>
               </h1>
 
@@ -133,7 +173,10 @@ export default function App() {
 
               <div className="flex flex-wrap gap-3">
                 <a href="#projects" className={`${buttonBase} bg-primary text-primary-foreground hover:opacity-90`}>
-                  View work
+                  View My Work
+                </a>
+                <a href="#contact" className={`${buttonBase} border border-border hover:bg-accent`}>
+                  Get In Touch
                 </a>
                 <a
                   href={RESUME_URL}
@@ -141,38 +184,98 @@ export default function App() {
                   rel="noopener noreferrer"
                   className={`${buttonBase} border border-border hover:bg-accent`}
                 >
-                  Download resume
-                </a>
-                <a href="#contact" className={`${buttonBase} border border-border hover:bg-accent`}>
-                  Get in touch
+                  Download Resume
                 </a>
               </div>
             </div>
 
-            <div className="flex justify-center">
-              <HangingIdCard name={NAME} role={ROLE}>
-                <div>
-                  <div className="bg-gradient-to-b from-emerald-50 to-white dark:from-zinc-800 dark:to-zinc-900">
-                    {/* Light mode photo */}
-                    <img
-                      src={photoLight}
-                      alt={`Portrait of ${NAME}`}
-                      className="block aspect-[4/5] w-full object-cover object-top dark:hidden"
-                    />
-                    {/* Dark mode photo (lazy: not fetched while hidden) */}
-                    <img
-                      src={photoDark}
-                      alt={`Portrait of ${NAME}`}
-                      loading="lazy"
-                      className="hidden aspect-[4/5] w-full object-cover object-top dark:block"
-                    />
+            <div className="relative flex justify-center items-center py-4">
+              {/* Subtle dotted background around component per Lightswind reference */}
+              <div className="absolute inset-0 max-w-sm mx-auto opacity-15 dark:opacity-20 bg-[radial-gradient(var(--color-primary)_1px,transparent_1px)] [background-size:16px_16px] rounded-3xl pointer-events-none" />
+
+              <HangingIdCard
+                name={NAME}
+                role={ROLE}
+                ropeLength={80}
+                ropeColor="#27272a"
+                accentColor="#10b981"
+                cardWidth="w-72 sm:w-80"
+              >
+                <div className="flex flex-col h-full bg-card w-full">
+                  {/* Gradient Header with Dotted Texture */}
+                  <div className="relative px-5 pt-8 pb-6 flex flex-col items-center bg-gradient-to-br from-emerald-600 via-primary to-teal-950 text-white overflow-hidden">
+                    <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:12px_12px] pointer-events-none" />
+
+                    {/* Overlapping Circular Portrait with Subtle Border and Active Indicator */}
+                    <div className="mt-2 relative w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-tr from-emerald-400 via-primary to-teal-300 backdrop-blur-md shadow-2xl border border-white/50 overflow-hidden group">
+                      {/* Light mode portrait */}
+                      <img
+                        src={idCardPortraitLight}
+                        alt={`Portrait of ${NAME}`}
+                        className="w-full h-full object-cover rounded-full filter contrast-105 dark:hidden"
+                        loading="eager"
+                      />
+                      {/* Dark mode portrait */}
+                      <img
+                        src={idCardPortraitDark}
+                        alt={`Portrait of ${NAME}`}
+                        className="hidden w-full h-full object-cover rounded-full filter contrast-105 dark:block"
+                        loading="eager"
+                      />
+                      <div className="absolute bottom-1 right-2 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-emerald-500 border-2 border-white shadow-md" />
+                    </div>
                   </div>
-                  <div className="px-4 py-3 text-center">
-                    <p className="text-sm font-bold leading-tight text-zinc-900 dark:text-white">{NAME}</p>
-                    <p className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">{ROLE}</p>
-                    <p className="mt-1 font-mono text-[10px] font-bold uppercase tracking-widest text-emerald-600">
-                      Process Automation
-                    </p>
+
+                  {/* Card Body */}
+                  <div className="p-5 flex flex-col items-center text-center bg-card text-card-foreground flex-1 gap-3">
+                    <div>
+                      <h3 className="text-xl font-extrabold tracking-tight text-foreground">{NAME}</h3>
+                      <div className="inline-flex items-center gap-1.5 mt-1 px-3 py-0.5 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-semibold">
+                        <span>{ROLE}</span>
+                      </div>
+                    </div>
+
+                    <div className="w-full border-t border-border/60 my-0.5" />
+
+                    {/* Two-Column Information Panel */}
+                    <div className="grid grid-cols-2 gap-2.5 w-full text-left bg-muted/40 p-3 rounded-xl border border-border/50">
+                      <div>
+                        <span className="text-muted-foreground block text-[9px] uppercase tracking-widest font-bold">Specialty</span>
+                        <span className="font-bold text-foreground text-xs">Process Automation</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground block text-[9px] uppercase tracking-widest font-bold">Location</span>
+                        <span className="font-bold text-foreground text-xs">Bangalore, India</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground block text-[9px] uppercase tracking-widest font-bold">Experience</span>
+                        <span className="font-bold text-foreground text-xs">7+ Years</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground block text-[9px] uppercase tracking-widest font-bold">Focus</span>
+                        <span className="font-bold text-foreground text-xs">Systems Integration</span>
+                      </div>
+                    </div>
+
+                    {/* Barcode-Style Footer */}
+                    <div className="flex flex-col items-center mt-1 w-full gap-1">
+                      <div className="flex gap-[2.5px] items-end h-7 px-3 py-0.5 bg-white/90 dark:bg-black/40 rounded-lg border border-border/40 w-full justify-center">
+                        {Array.from({ length: 36 }).map((_, i) => (
+                          <div
+                            key={i}
+                            className="bg-foreground rounded-[1px]"
+                            style={{
+                              width: i % 4 === 0 ? "3.5px" : i % 2 === 0 ? "2px" : "1px",
+                              height: `${50 + Math.sin(i * 1.4) * 45}%`,
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between w-full px-1 text-[10px]">
+                        <span className="font-mono font-bold tracking-widest text-primary">AJITH KS</span>
+                        <span className="text-muted-foreground font-semibold text-[9px] uppercase tracking-wider">PORTFOLIO</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </HangingIdCard>
@@ -180,14 +283,29 @@ export default function App() {
           </div>
         </section>
 
-        {/* Anchors for the nav links; the sections are built in step 7b */}
+        {/* Tech Marquee Strip */}
+        <div className="border-y border-border/60 bg-muted/20 py-4">
+          <SlidingLogoMarquee
+            items={MARQUEE_ITEMS}
+            speed={20}
+            height="50px"
+            gap="1.5rem"
+            showControls={false}
+          />
+        </div>
+
+        {/* Sections */}
         <AboutSection />
-        <ServicesSection />
-        <section id="education" aria-label="Experience and education" className="py-12" />
-        <section id="projects" aria-label="Projects" className="py-12" />
-        <section id="skills" aria-label="Skills" className="py-12" />
-        <section id="contact" aria-label="Contact" className="py-12" />
+        <SkillsSection />
+        <ExperienceSection />
+        <ProjectsSection />
+        <ExpertiseSection />
+        <EducationSection />
+        <CertificationsSection />
+        <ContactSection />
       </main>
+
+      <Footer />
     </div>
   )
 }
