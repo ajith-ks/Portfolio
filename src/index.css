@@ -70,3 +70,13 @@ body {
     animation: none;
   }
 }
+
+/* Dotted background behind the hero and the tech marquee strip (UI-1) */
+.dot-pattern {
+  --dot: rgb(9 9 11 / 0.18);
+  background-image: radial-gradient(circle, var(--dot) 1.2px, transparent 1.6px);
+  background-size: 22px 22px;
+}
+.dark .dot-pattern {
+  --dot: rgb(250 250 250 / 0.16);
+}

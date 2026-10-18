@@ -55,7 +55,7 @@ const NAV_LINKS = [
 const MARQUEE_ITEMS: SlidingLogoMarqueeItem[] = content.marquee.map((name) => ({
   id: name,
   content: (
-    <span className="flex items-center justify-center whitespace-nowrap rounded-full border border-border bg-card/60 px-5 py-2 text-sm font-semibold tracking-wide text-muted-foreground backdrop-blur-sm transition-colors hover:border-primary hover:text-foreground">
+    <span className="flex items-center justify-center whitespace-nowrap rounded-full border border-border bg-card/60 px-5 py-2 text-sm font-semibold tracking-wide text-muted-foreground backdrop-blur-sm shadow-sm transition-colors hover:border-primary hover:text-foreground">
       {name}
     </span>
   ),
@@ -157,7 +157,9 @@ export default function App() {
       </header>
 
       <main>
-        <section id="hero" className="mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-16 pt-32">
+        <div className="relative w-full">
+          <div className="dot-pattern pointer-events-none absolute inset-0 z-0" aria-hidden />
+          <section id="hero" className="relative z-10 mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-16 pt-32">
           <div className="grid w-full items-center gap-12 lg:grid-cols-2">
             <div className="space-y-6">
               <p className="font-mono text-sm font-semibold tracking-wider text-primary">
@@ -284,7 +286,7 @@ export default function App() {
         </section>
 
         {/* Tech Marquee Strip */}
-        <div className="border-y border-border/60 bg-muted/20 py-4">
+        <div className="relative z-10 border-y border-border/60 bg-muted/20 py-4">
           <SlidingLogoMarquee
             items={MARQUEE_ITEMS}
             speed={20}
@@ -292,6 +294,7 @@ export default function App() {
             gap="1.5rem"
             showControls={false}
           />
+        </div>
         </div>
 
         {/* Sections */}
