@@ -15,6 +15,8 @@ import { ContactSection } from '@/components/sections/contact'
 import { Footer } from '@/components/sections/footer'
 import idCardPortraitLight from '@/assets/id-card-portrait-light.webp'
 import idCardPortraitDark from '@/assets/id-card-portrait-dark.webp'
+import { Mail } from 'lucide-react'
+import { GithubIcon, LinkedinIcon } from '@/components/icons'
 
 // The theme toggle switches the "dark" class on <html>, so apply the saved
 // (or system) theme once, before the first render.
@@ -187,6 +189,17 @@ export default function App() {
                   className={`${buttonBase} border border-border hover:bg-accent`}
                 >
                   Download Resume
+                </a>
+              </div>
+              <div className="flex gap-4 items-center">
+                <a href={content.contact.github} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-border border border-muted-foreground/50 bg-background hover:border-primary hover:bg-primary/10 hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="GitHub">
+                  <GithubIcon className="h-5 w-5 text-muted-foreground hover:text-primary" />
+                </a>
+                <a href={content.contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-border border border-muted-foreground/50 bg-background hover:border-primary hover:bg-primary/10 hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="LinkedIn">
+                  <LinkedinIcon className="h-5 w-5 text-muted-foreground hover:text-primary" />
+                </a>
+                <a href={`mailto:${content.contact.email}`} className="flex h-9 w-9 items-center justify-center rounded-border border border-muted-foreground/50 bg-background hover:border-primary hover:bg-primary/10 hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="Email">
+                  <Mail className="h-5 w-5 text-muted-foreground hover:text-primary" />
                 </a>
               </div>
             </div>
