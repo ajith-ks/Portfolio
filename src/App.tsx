@@ -218,7 +218,7 @@ export default function App() {
               >
                 <div className="flex flex-col h-full bg-card w-full">
                   {/* Gradient Header with Dotted Texture */}
-                  <div className="relative px-5 pt-8 pb-6 flex flex-col items-center bg-gradient-to-br from-emerald-600 via-primary to-teal-950 text-white overflow-hidden">
+                  <div className="relative px-5 pt-8 pb-6 flex flex-col items-center bg-gradient-to-br from-emerald-600 via-emerald-400 to-emerald-50 text-white overflow-hidden dark:from-emerald-600 dark:via-primary dark:to-teal-950">
                     <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:12px_12px] pointer-events-none" />
 
                     {/* Overlapping Circular Portrait with Subtle Border and Active Indicator */}
@@ -237,7 +237,6 @@ export default function App() {
                         className="hidden w-full h-full object-cover rounded-full filter contrast-105 dark:block"
                         loading="eager"
                       />
-                      <div className="absolute bottom-1 right-2 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-emerald-500 border-2 border-white shadow-md" />
                     </div>
                   </div>
 
