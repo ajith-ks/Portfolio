@@ -17,6 +17,7 @@ import idCardPortraitLight from '@/assets/id-card-portrait-light.webp'
 import idCardPortraitDark from '@/assets/id-card-portrait-dark.webp'
 import { Mail } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/icons'
+import { SmoothCursor } from '@/components/SmoothCursor'
 
 // The theme toggle switches the "dark" class on <html>, so apply the saved
 // (or system) theme once, before the first render.
@@ -87,6 +88,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <SmoothCursor />
       <header className="fixed inset-x-4 top-4 z-50 mx-auto max-w-6xl">
         <nav
           aria-label="Main"
