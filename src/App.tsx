@@ -19,6 +19,7 @@ import { Mail } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/icons'
 import { SmoothCursor } from '@/components/SmoothCursor'
 import { PortfolioDock } from '@/components/PortfolioDock'
+import { SkillIcon } from '@/data/skill-icons'
 
 // The theme toggle switches the "dark" class on <html>, so apply the saved
 // (or system) theme once, before the first render.
@@ -78,7 +79,8 @@ const MARQUEE_ITEMS: SlidingLogoMarqueeItem[] = content.marquee.map((name) => ({
   id: name,
   content: (
     <span className="flex items-center justify-center whitespace-nowrap rounded-full border border-border bg-card/60 px-5 py-2 text-sm font-semibold tracking-wide text-muted-foreground backdrop-blur-sm shadow-sm transition-colors hover:border-primary hover:text-foreground">
-      {name}
+      <SkillIcon name={name} size={20} className="mr-2.5 shrink-0" />
+      <span>{name}</span>
     </span>
   ),
 }))
