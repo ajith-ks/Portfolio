@@ -80,3 +80,9 @@ body {
 .dark .dot-pattern {
   --dot: rgb(250 250 250 / 0.16);
 }
+
+/* UI-4: hide the native cursor when the custom SmoothCursor is active */
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none !important;
+}

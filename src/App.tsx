@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import { HangingIdCard } from '@/components/lightswind/hanging-id-card'
 import { ToggleTheme } from '@/components/lightswind/toggle-theme'
@@ -46,6 +46,24 @@ const BIO =
 
 const RESUME_URL = import.meta.env.BASE_URL + 'resume/Ajith_KS_Automation_Engineer_Resume.pdf'
 
+// UI-5: all animation variants supported by ToggleTheme, in cycle order.
+// Starts from the toggle button position for circle-spread; others use their
+// own spatial logic.
+const ANIM_CYCLE = [
+  'circle-spread',
+  'swipe-left',
+  'swipe-up',
+  'swipe-right',
+  'swipe-down',
+  'round-morph',
+  'shrink-grow',
+  'diag-down-right',
+  'split-vertical',
+  'fade-in-out',
+  'wave-ripple',
+  'flip-x-in',
+] as const
+
 const NAV_LINKS = [
   { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
@@ -69,6 +87,24 @@ const buttonBase =
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+
+  // UI-5: cycling animation index; stored in ref to avoid re-render cascade
+  const animIdxRef = useRef(0)
+  const [animType, setAnimType] = useState<typeof ANIM_CYCLE[number]>('circle-spread')
+
+  // Advance animation on each toggle click (ToggleTheme calls its internal
+  // toggleTheme; we hook onAnimationEnd / just advance before passing new prop)
+  const advanceAnim = () => {
+    animIdxRef.current = (animIdxRef.current + 1) % ANIM_CYCLE.length
+    setAnimType(ANIM_CYCLE[animIdxRef.current])
+  }
+
+  // Detect reduced-motion and ViewTransition support once on mount
+  const reducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false
+  const vtSupported = typeof document !== 'undefined' && 'startViewTransition' in document
+  const effectiveAnim = (!reducedMotion && vtSupported) ? animType : 'none'
 
   // Smooth scrolling (skipped for people who prefer reduced motion)
   useEffect(() => {
@@ -120,7 +156,7 @@ export default function App() {
             >
               Resume
             </a>
-            <ToggleTheme />
+            <ToggleTheme animationType={effectiveAnim} onClick={advanceAnim} />
             <button
               type="button"
               className="rounded-full border border-border px-3 py-1.5 text-sm md:hidden"

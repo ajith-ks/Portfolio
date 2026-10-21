@@ -79,15 +79,26 @@ export const ToggleTheme = ({
     const toggleTheme = useCallback(async () => {
         if (!buttonRef.current) return
 
-        // Wait for the DOM update to complete within the View Transition
-        await document.startViewTransition(() => {
+        // If View Transitions API is unavailable or animationType is "none",
+        // do an instant switch (per UI-5: skip animation when unavailable or
+        // prefers-reduced-motion is on).
+        const applyTheme = () => {
             flushSync(() => {
                 const newTheme = !isDark
                 setIsDark(newTheme)
                 document.documentElement.classList.toggle("dark")
                 localStorage.setItem("theme", newTheme ? "dark" : "light")
             })
-        }).ready
+        }
+
+        if (!('startViewTransition' in document) || animationType === 'none') {
+            applyTheme()
+            return
+        }
+
+        // Wait for the DOM update to complete within the View Transition
+        await (document as Document & { startViewTransition: (cb: () => void) => { ready: Promise<void> } })
+            .startViewTransition(applyTheme).ready
 
         // Calculate coordinates and dimensions for spatial animations
         const { top, left, width, height } =
@@ -312,7 +323,7 @@ export const ToggleTheme = ({
                 )
                 break
 
-            case "none":
+            case "none" as AnimationType:
             default:
                 // No custom animation runs
                 break
@@ -323,13 +334,17 @@ export const ToggleTheme = ({
     return (
         <button
             ref={buttonRef}
-            onClick={toggleTheme}
+            {...props}
+            onClick={async (e) => {
+                // Call any external onClick first (e.g. advanceAnim for UI-5 cycling)
+                if (props.onClick) props.onClick(e as React.MouseEvent<HTMLButtonElement>)
+                await toggleTheme()
+            }}
             className={cn(
                 "p-2 rounded-full transition-colors duration-300",
                 isDark ? "hover:text-amber-400" : "hover:text-primarylw",
                 className
             )}
-            {...props}
         >
             {isDark ? <Sun className="h-6 w-6" /> : <Moon className="h-6 w-6" />}
         </button>
