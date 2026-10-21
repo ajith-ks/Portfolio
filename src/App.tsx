@@ -232,14 +232,30 @@ export default function App() {
                 </a>
               </div>
               <div className="flex gap-4 items-center">
-                <a href={content.contact.github} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-border border border-muted-foreground/50 bg-background hover:border-primary hover:bg-primary/10 hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="GitHub">
-                  <GithubIcon className="h-5 w-5 text-muted-foreground hover:text-primary" />
+                <a
+                  href={content.contact.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-11 w-11 items-center justify-center text-muted-foreground hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  aria-label="GitHub"
+                >
+                  <GithubIcon className="h-5 w-5" />
                 </a>
-                <a href={content.contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-border border border-muted-foreground/50 bg-background hover:border-primary hover:bg-primary/10 hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="LinkedIn">
-                  <LinkedinIcon className="h-5 w-5 text-muted-foreground hover:text-primary" />
+                <a
+                  href={content.contact.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-11 w-11 items-center justify-center text-muted-foreground hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  aria-label="LinkedIn"
+                >
+                  <LinkedinIcon className="h-5 w-5" />
                 </a>
-                <a href={`mailto:${content.contact.email}`} className="flex h-9 w-9 items-center justify-center rounded-border border border-muted-foreground/50 bg-background hover:border-primary hover:bg-primary/10 hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="Email">
-                  <Mail className="h-5 w-5 text-muted-foreground hover:text-primary" />
+                <a
+                  href={`mailto:${content.contact.email}`}
+                  className="flex h-11 w-11 items-center justify-center text-muted-foreground hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  aria-label="Email"
+                >
+                  <Mail className="h-5 w-5" />
                 </a>
               </div>
             </div>
