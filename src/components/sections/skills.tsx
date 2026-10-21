@@ -1,6 +1,7 @@
 import { content } from '@/data/content'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/lightswind/card'
 import { Zap, Server, ClipboardCheck, BarChart2 } from 'lucide-react'
+import { SkillIcon } from '@/data/skill-icons'
 
 const CATEGORY_ICONS = [Zap, Server, ClipboardCheck, BarChart2]
 
@@ -37,9 +38,10 @@ export function SkillsSection() {
                   {cat.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center rounded-lg border border-border/80 bg-background/60 px-3 py-1 text-xs font-medium text-foreground backdrop-blur-xs transition-colors hover:border-primary/50 hover:bg-accent"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-border/80 bg-background/60 px-3 py-1.5 text-xs font-medium text-foreground backdrop-blur-xs transition-colors hover:border-primary/50 hover:bg-accent"
                     >
-                      {tag}
+                      <SkillIcon name={tag} size={16} className="shrink-0" />
+                      <span>{tag}</span>
                     </span>
                   ))}
                 </div>
