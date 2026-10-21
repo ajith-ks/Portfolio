@@ -75,7 +75,31 @@ const NAV_LINKS = [
   { label: 'Contact', href: '#contact' },
 ]
 
-const MARQUEE_ITEMS: SlidingLogoMarqueeItem[] = content.marquee.map((name) => ({
+// Build full list of skills in the tech strip in code: initial 12 + 3 additions + remaining from content.skills
+const STRIP_ADDITIONS = [
+  'Process Automation',
+  'Workflow Automation',
+  'Automation Scripting',
+]
+
+const ALL_STRIP_SKILLS: string[] = (() => {
+  const list = [...content.marquee, ...STRIP_ADDITIONS]
+  const seen = new Set(list.map((s) => s.toLowerCase()))
+  seen.add('rest api') // treat 'REST API' as the same skill as 'REST APIs'
+
+  for (const group of content.skills) {
+    for (const tag of group.tags) {
+      const lower = tag.toLowerCase()
+      if (!seen.has(lower)) {
+        seen.add(lower)
+        list.push(tag)
+      }
+    }
+  }
+  return list
+})()
+
+const MARQUEE_ITEMS: SlidingLogoMarqueeItem[] = ALL_STRIP_SKILLS.map((name) => ({
   id: name,
   content: (
     <span className="flex items-center justify-center whitespace-nowrap rounded-full border border-border bg-card/60 px-5 py-2 text-sm font-semibold tracking-wide text-muted-foreground backdrop-blur-sm shadow-sm transition-colors hover:border-primary hover:text-foreground">
@@ -359,7 +383,7 @@ export default function App() {
         <div className="relative z-10 border-y border-border/60 bg-muted/20 py-4">
           <SlidingLogoMarquee
             items={MARQUEE_ITEMS}
-            speed={20}
+            speed={6}
             height="50px"
             gap="1.5rem"
             showControls={false}
