@@ -1,6 +1,7 @@
 import { content } from '@/data/content'
 import { Card, CardContent } from '@/components/lightswind/card'
 import { Calendar, MapPin, Briefcase } from 'lucide-react'
+import { NeonTimeline } from '@/components/NeonTimeline'
 
 export function ExperienceSection() {
   const { experienceSection, experience } = content
@@ -17,7 +18,8 @@ export function ExperienceSection() {
         </h2>
       </div>
 
-      <Card className="overflow-hidden border border-border bg-card/60 backdrop-blur-sm shadow-lg">
+      <NeonTimeline nodes={1}>
+        <Card className="overflow-hidden border border-border bg-card/60 backdrop-blur-sm shadow-lg">
         <div className="border-b border-border/80 bg-muted/30 p-6 sm:p-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-1">
@@ -71,6 +73,7 @@ export function ExperienceSection() {
           </div>
         </CardContent>
       </Card>
+      </NeonTimeline>
     </section>
   )
 }
