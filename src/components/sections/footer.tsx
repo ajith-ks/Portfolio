@@ -14,7 +14,7 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="border-t border-border/60 bg-muted/20 py-16">
+    <footer className="border-t border-border/60 bg-muted/20 py-16 pb-20">
       <div className="mx-auto max-w-6xl px-6 text-center space-y-6">
         <p className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
           {footer.brand}
